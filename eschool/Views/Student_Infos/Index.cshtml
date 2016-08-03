@@ -1,0 +1,106 @@
+﻿@*@model IEnumerable<eschool.Student_Infos>*@
+
+@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<eschool.Student_Infos>
+
+
+@{
+    ViewBag.Title = "Students List";
+}
+<fieldset>
+    <legend>Student Search</legend>
+
+    @*@Html.ActionLink("Create New", "Create")*@
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10" style="float:left;">
+                <form class="navbar-form navbar-left" role="search" style="margin-left:5px;">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Chercher">
+                    </div>
+                    <button type="submit" class="btn btn-default">Chercher</button>
+                </form>
+            </div>
+        </div>
+    </div><br />
+</fieldset>
+<div style="float:right;">@Html.ActionLink("Create New >>", "Create", null, new { @class = "btn btn-success btn-sm"})</div><br />
+<form>
+    <fieldset>
+        <legend>Students List</legend>
+        <table class="table table-responsive table-hover table-bordered table-condensed">
+            <tr style="background-color: #f5f5f5">
+                <th>
+                    First Name
+                </th>
+                <th>
+                    Last Name
+                </th>
+                <th>
+                    Age
+                </th>
+                <th>
+                    N° Phone
+                </th>
+                <th>
+                    E-mail
+                </th>
+                @*<th>
+                    Picture
+                </th>*@
+                <th>
+                    Class
+                </th>
+                <th>
+                    Filiere
+                </th>
+                <th>Actions</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Student_Fname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Student_Lname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Student_Age)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Student_Phone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Student_Email)
+                    </td>
+                    @*<td>
+                        @Html.DisplayFor(modelItem => item.Student_Photo)
+                    </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Student_Classe.Classe_Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Student_Filiere.FiliereName)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Student_Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Student_Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Student_Id })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </fieldset>
+</form>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }),
+                    new PagedListRenderOptions()
+                    {
+                        Display = PagedListDisplayMode.IfNeeded,
+                        MaximumPageNumbersToDisplay = 9,
+                        DisplayPageCountAndCurrentLocation = true,
+                        PageCountAndCurrentLocationFormat = "Page {0} sur {1}"
+                    })

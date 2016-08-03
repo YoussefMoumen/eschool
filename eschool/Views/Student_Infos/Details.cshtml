@@ -1,0 +1,82 @@
+﻿@model eschool.Student_Infos
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Student_Infos</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Student_Fname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student_Fname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Student_Lname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student_Lname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Student_Age)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student_Age)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Student_Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student_Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Student_Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student_Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Student_Photo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student_Photo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Student_Classe.Classe_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student_Classe.Classe_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Student_Filiere.FiliereName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student_Filiere.FiliereName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Student_Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

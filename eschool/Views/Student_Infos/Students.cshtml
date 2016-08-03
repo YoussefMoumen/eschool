@@ -1,0 +1,53 @@
+﻿@model IEnumerable<eschool.Student_Infos>
+
+@{
+    ViewBag.Title = "Students";
+}
+<fieldset>
+    <legend>Student Search</legend>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10" style="float:left;">
+                <form class="navbar-form navbar-left" role="search" style="margin-left:5px;">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Chercher">
+                    </div>
+                    <button type="submit" class="btn btn-default">Chercher</button>
+                </form>
+            </div>
+        </div>
+    </div><br />
+</fieldset>
+@*<p>
+    @Html.ActionLink("Create New", "Create", null, new {@class= "btn btn-sm btn-success" })
+</p>*@
+@foreach (var item in Model)
+{
+    
+        <div class="col-md-4 col-sm-6" style="margin-bottom:10px;">
+            <div class="pull-right" style="padding:7px">
+                @Html.ActionLink("Edit", "Edit", new { id = item.Student_Id }, new { @class = "btn btn-xs btn-info" })
+            </div>
+            <div class="well well-lg">
+                <div class="media">
+                    <a class="thumbnail pull-left" href="#">
+                        <img class="media-object" src="//placehold.it/80">
+                        @Html.DisplayFor(modelItem => item.Student_Photo)
+                    </a>
+                    <b>
+                        @Html.DisplayFor(modelItem => item.Student_Fname)
+                    </b>
+                    @Html.DisplayFor(modelItem => item.Student_Lname)
+                    <br />
+                    @Html.DisplayFor(modelItem => item.Student_Age) Years Old<br />
+                    Filiere : @Html.DisplayFor(modelItem => item.Student_Filiere.FiliereName)<br />
+                    Classe: @Html.DisplayFor(modelItem => item.Student_Classe.Classe_Name)<br /><br />
+                    N° Phone : @Html.DisplayFor(modelItem => item.Student_Phone)<br />
+                    E-mail : @Html.DisplayFor(modelItem => item.Student_Email)
+
+                </div>
+            </div>
+        </div>
+}
+
+

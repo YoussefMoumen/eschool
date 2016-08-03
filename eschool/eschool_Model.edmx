@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="eschoolModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Student_Classe">
+          <Key>
+            <PropertyRef Name="Classe_Id" />
+          </Key>
+          <Property Name="Classe_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Classe_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Student_Filiere">
+          <Key>
+            <PropertyRef Name="FiliereId" />
+          </Key>
+          <Property Name="FiliereId" Type="int" Nullable="false" />
+          <Property Name="FiliereName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Student_Infos">
+          <Key>
+            <PropertyRef Name="Student_Id" />
+          </Key>
+          <Property Name="Student_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Student_Fname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Student_Lname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Student_Age" Type="int" />
+          <Property Name="Student_Filiere_Id" Type="int" />
+          <Property Name="Student_Classe_Id" Type="int" />
+          <Property Name="Student_Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Student_Email" Type="nvarchar(max)" />
+          <Property Name="Student_Photo" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_Student_Infos_Student_Classe">
+          <End Role="Student_Classe" Type="Self.Student_Classe" Multiplicity="0..1" />
+          <End Role="Student_Infos" Type="Self.Student_Infos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student_Classe">
+              <PropertyRef Name="Classe_Id" />
+            </Principal>
+            <Dependent Role="Student_Infos">
+              <PropertyRef Name="Student_Classe_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Infos_Student_Filiere">
+          <End Role="Student_Filiere" Type="Self.Student_Filiere" Multiplicity="0..1" />
+          <End Role="Student_Infos" Type="Self.Student_Infos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student_Filiere">
+              <PropertyRef Name="FiliereId" />
+            </Principal>
+            <Dependent Role="Student_Infos">
+              <PropertyRef Name="Student_Filiere_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="eschoolModelStoreContainer">
+          <EntitySet Name="Student_Classe" EntityType="Self.Student_Classe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student_Filiere" EntityType="Self.Student_Filiere" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student_Infos" EntityType="Self.Student_Infos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Student_Infos_Student_Classe" Association="Self.FK_Student_Infos_Student_Classe">
+            <End Role="Student_Classe" EntitySet="Student_Classe" />
+            <End Role="Student_Infos" EntitySet="Student_Infos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Infos_Student_Filiere" Association="Self.FK_Student_Infos_Student_Filiere">
+            <End Role="Student_Filiere" EntitySet="Student_Filiere" />
+            <End Role="Student_Infos" EntitySet="Student_Infos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="eschoolModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Student_Classe">
+          <Key>
+            <PropertyRef Name="Classe_Id" />
+          </Key>
+          <Property Name="Classe_Id" Type="Int32" Nullable="false" />
+          <Property Name="Classe_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Student_Infos" Relationship="Self.FK_Student_Infos_Student_Classe" FromRole="Student_Classe" ToRole="Student_Infos" />
+        </EntityType>
+        <EntityType Name="Student_Filiere">
+          <Key>
+            <PropertyRef Name="FiliereId" />
+          </Key>
+          <Property Name="FiliereId" Type="Int32" Nullable="false" />
+          <Property Name="FiliereName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Student_Infos" Relationship="Self.FK_Student_Infos_Student_Filiere" FromRole="Student_Filiere" ToRole="Student_Infos" />
+        </EntityType>
+        <EntityType Name="Student_Infos">
+          <Key>
+            <PropertyRef Name="Student_Id" />
+          </Key>
+          <Property Name="Student_Id" Type="Int32" Nullable="false" />
+          <Property Name="Student_Fname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Student_Lname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Student_Age" Type="Int32" />
+          <Property Name="Student_Filiere_Id" Type="Int32" />
+          <Property Name="Student_Classe_Id" Type="Int32" />
+          <Property Name="Student_Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Student_Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Student_Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Student_Classe" Relationship="Self.FK_Student_Infos_Student_Classe" FromRole="Student_Infos" ToRole="Student_Classe" />
+          <NavigationProperty Name="Student_Filiere" Relationship="Self.FK_Student_Infos_Student_Filiere" FromRole="Student_Infos" ToRole="Student_Filiere" />
+        </EntityType>
+        <Association Name="FK_Student_Infos_Student_Classe">
+          <End Role="Student_Classe" Type="Self.Student_Classe" Multiplicity="0..1" />
+          <End Role="Student_Infos" Type="Self.Student_Infos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student_Classe">
+              <PropertyRef Name="Classe_Id" />
+            </Principal>
+            <Dependent Role="Student_Infos">
+              <PropertyRef Name="Student_Classe_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Infos_Student_Filiere">
+          <End Role="Student_Filiere" Type="Self.Student_Filiere" Multiplicity="0..1" />
+          <End Role="Student_Infos" Type="Self.Student_Infos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student_Filiere">
+              <PropertyRef Name="FiliereId" />
+            </Principal>
+            <Dependent Role="Student_Infos">
+              <PropertyRef Name="Student_Filiere_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="eschoolEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Student_Classe" EntityType="Self.Student_Classe" />
+          <EntitySet Name="Student_Filiere" EntityType="Self.Student_Filiere" />
+          <EntitySet Name="Student_Infos" EntityType="Self.Student_Infos" />
+          <AssociationSet Name="FK_Student_Infos_Student_Classe" Association="Self.FK_Student_Infos_Student_Classe">
+            <End Role="Student_Classe" EntitySet="Student_Classe" />
+            <End Role="Student_Infos" EntitySet="Student_Infos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Infos_Student_Filiere" Association="Self.FK_Student_Infos_Student_Filiere">
+            <End Role="Student_Filiere" EntitySet="Student_Filiere" />
+            <End Role="Student_Infos" EntitySet="Student_Infos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="eschoolModelStoreContainer" CdmEntityContainer="eschoolEntities">
+          <EntitySetMapping Name="Student_Classe">
+            <EntityTypeMapping TypeName="eschoolModel.Student_Classe">
+              <MappingFragment StoreEntitySet="Student_Classe">
+                <ScalarProperty Name="Classe_Id" ColumnName="Classe_Id" />
+                <ScalarProperty Name="Classe_Name" ColumnName="Classe_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Student_Filiere">
+            <EntityTypeMapping TypeName="eschoolModel.Student_Filiere">
+              <MappingFragment StoreEntitySet="Student_Filiere">
+                <ScalarProperty Name="FiliereId" ColumnName="FiliereId" />
+                <ScalarProperty Name="FiliereName" ColumnName="FiliereName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Student_Infos">
+            <EntityTypeMapping TypeName="eschoolModel.Student_Infos">
+              <MappingFragment StoreEntitySet="Student_Infos">
+                <ScalarProperty Name="Student_Id" ColumnName="Student_Id" />
+                <ScalarProperty Name="Student_Fname" ColumnName="Student_Fname" />
+                <ScalarProperty Name="Student_Lname" ColumnName="Student_Lname" />
+                <ScalarProperty Name="Student_Age" ColumnName="Student_Age" />
+                <ScalarProperty Name="Student_Filiere_Id" ColumnName="Student_Filiere_Id" />
+                <ScalarProperty Name="Student_Classe_Id" ColumnName="Student_Classe_Id" />
+                <ScalarProperty Name="Student_Phone" ColumnName="Student_Phone" />
+                <ScalarProperty Name="Student_Email" ColumnName="Student_Email" />
+                <ScalarProperty Name="Student_Photo" ColumnName="Student_Photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
