@@ -19,11 +19,11 @@ namespace eschool.Controllers
         // GET: Student_Infos
         public ActionResult Index(int? page)
         {
-            var resultquery = (from d in context.Student_Infos
-                               select new Student_Infos()
-                               {
-                                   Student_Fname = d.Student_Fname,
-                               }).ToList<Student_Infos>();
+            //var resultquery = (from d in context.Student_Infos
+            //                   select new Student_Infos()
+            //                   {
+            //                       Student_Fname = d.Student_Fname,
+            //                   }).ToList<Student_Infos>();
             try
             {
 
@@ -40,10 +40,19 @@ namespace eschool.Controllers
         }
 
 
-        public ActionResult Students()
+        public ActionResult Students(int? page, string searchName)
         {
-            var students = db.Student_Infos.Include(s => s.Student_Classe).Include(s => s.Student_Filiere);
-            return View(students.ToList());
+            var student = from s in db.Student_Infos
+                          select s;
+
+            if (!String.IsNullOrEmpty(searchName))
+            {
+                student = student.Where(s => s.Student_Fname.Contains(searchName)
+                                       || s.Student_Lname.Contains(searchName));
+                return View(student.ToList().ToPagedList(page ?? 1, 9));
+            }
+             var students = db.Student_Infos.Include(s => s.Student_Classe).Include(s => s.Student_Filiere);
+            return View(students.ToList().ToPagedList(page ?? 1, 9));
         }
 
         // GET: Student_Infos/Details/5

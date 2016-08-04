@@ -1,4 +1,8 @@
-﻿@model IEnumerable<eschool.Student_Infos>
+﻿@*@model IEnumerable<eschool.Student_Infos>*@
+
+@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<eschool.Student_Infos>
 
 @{
     ViewBag.Title = "Students";
@@ -10,7 +14,8 @@
             <div class="col-md-10" style="float:left;">
                 <form class="navbar-form navbar-left" role="search" style="margin-left:5px;">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Chercher">
+                        @*<input type="text" class="form-control" placeholder="Chercher">*@
+                        @Html.TextBox("searchName",null,htmlAttributes: new {@class= "form-control", placeholder = "First or Last Name" })
                     </div>
                     <button type="submit" class="btn btn-default">Chercher</button>
                 </form>
@@ -21,9 +26,11 @@
 @*<p>
     @Html.ActionLink("Create New", "Create", null, new {@class= "btn btn-sm btn-success" })
 </p>*@
-@foreach (var item in Model)
-{
-    
+<fieldset>
+    <legend>Student List</legend>
+    @foreach (var item in Model)
+    {
+
         <div class="col-md-4 col-sm-6" style="margin-bottom:10px;">
             <div class="pull-right" style="padding:7px">
                 @Html.ActionLink("Edit", "Edit", new { id = item.Student_Id }, new { @class = "btn btn-xs btn-info" })
@@ -48,6 +55,14 @@
                 </div>
             </div>
         </div>
-}
-
+    }
+    </fieldset>
+    @Html.PagedListPager(Model, page => Url.Action("Students", new { page }),
+                    new PagedListRenderOptions()
+                    {
+                        Display = PagedListDisplayMode.IfNeeded,
+                        MaximumPageNumbersToDisplay = 9,
+                        DisplayPageCountAndCurrentLocation = true,
+                        PageCountAndCurrentLocationFormat = "Page {0} sur {1}"
+                    })
 
