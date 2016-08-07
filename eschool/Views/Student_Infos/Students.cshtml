@@ -20,7 +20,10 @@
                     <button type="submit" class="btn btn-default">Chercher</button>
                 </form>
             </div>
-        </div>
+            <div class="col-md-2" style="float:right;">
+                <div style="float:right;">@Html.ActionLink("Create New >>", "_Create", null, new { @class = "btn btn-success btn-sm", data_toggle = "modal", data_target = "#Show_Create" })</div><br />
+            </div>
+            </div>
     </div><br />
 </fieldset>
 @*<p>
@@ -33,7 +36,7 @@
 
         <div class="col-md-4 col-sm-6" style="margin-bottom:10px;">
             <div class="pull-right" style="padding:7px">
-                @Html.ActionLink("Edit", "Edit", new { id = item.Student_Id }, new { @class = "btn btn-xs btn-info" })
+                @Html.ActionLink("Edit", "_Edit", new { id = item.Student_Id }, new { @class = "btn btn-xs btn-info", data_toggle = "modal", data_target = "#Show_Edit" })
             </div>
             <div class="well well-lg">
                 <div class="media">
@@ -66,3 +69,19 @@
                         PageCountAndCurrentLocationFormat = "Page {0} sur {1}"
                     })
 
+@*----Modal _Edit-----*@
+
+<div class="modal fade" id="Show_Edit" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="margin-top:80px;" >
+    <div class="modal-dialog">
+
+</div>
+</div>
+
+<div class="modal fade" id="Show_Create" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="margin-top:80px;">
+    <div class="modal-dialog">
+
+    </div>
+</div>
+
+
+    

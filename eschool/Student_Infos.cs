@@ -16,8 +16,10 @@ namespace eschool
     {
         public int Student_Id { get; set; }
         [Display(Name = "First Name")]
+        [Required]
         public string Student_Fname { get; set; }
         [Display(Name = "Last Name")]
+        [Required]
         public string Student_Lname { get; set; }
         [Display(Name = "Age")]
         public Nullable<int> Student_Age { get; set; }

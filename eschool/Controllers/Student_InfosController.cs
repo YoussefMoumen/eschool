@@ -17,7 +17,7 @@ namespace eschool.Controllers
         private eschoolEntities db = new eschoolEntities();
         eschoolEntities context = new eschoolEntities();
         // GET: Student_Infos
-        public ActionResult Index(int? page)
+        public ActionResult Index()
         {
             //var resultquery = (from d in context.Student_Infos
             //                   select new Student_Infos()
@@ -28,7 +28,7 @@ namespace eschool.Controllers
             {
 
                 var student_Infos = db.Student_Infos.Include(s => s.Student_Classe).Include(s => s.Student_Filiere);
-                return View(student_Infos.ToList().ToPagedList(page ?? 1, 9));
+                return View(student_Infos.ToList());
             }
             catch (Exception e)
             {
@@ -71,11 +71,11 @@ namespace eschool.Controllers
         }
 
         // GET: Student_Infos/Create
-        public ActionResult Create()
+        public ActionResult _Create()
         {
             ViewBag.Student_Classe_Id = new SelectList(db.Student_Classe, "Classe_Id", "Classe_Name");
             ViewBag.Student_Filiere_Id = new SelectList(db.Student_Filiere, "FiliereId", "FiliereName");
-            return View();
+            return PartialView();
         }
 
         // POST: Student_Infos/Create
@@ -83,22 +83,23 @@ namespace eschool.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Student_Fname,Student_Lname,Student_Age,Student_Filiere_Id,Student_Classe_Id,Student_Phone,Student_Email,Student_Photo")] Student_Infos student_Infos)
+        public ActionResult _Create([Bind(Include = "Student_Fname,Student_Lname,Student_Age,Student_Filiere_Id,Student_Classe_Id,Student_Phone,Student_Email,Student_Photo")] Student_Infos student_Infos)
         {
             if (ModelState.IsValid)
             {
+                ViewBag.SuccessMessage = "Change succesfully";
                 db.Student_Infos.Add(student_Infos);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return PartialView("_Create");
             }
-
+            
             ViewBag.Student_Classe_Id = new SelectList(db.Student_Classe, "Classe_Id", "Classe_Name", student_Infos.Student_Classe_Id);
             ViewBag.Student_Filiere_Id = new SelectList(db.Student_Filiere, "FiliereId", "FiliereName", student_Infos.Student_Filiere_Id);
-            return View(student_Infos);
+            return PartialView(student_Infos);
         }
 
         // GET: Student_Infos/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult _Edit(int? id)
         {
             if (id == null)
             {
@@ -111,7 +112,7 @@ namespace eschool.Controllers
             }
             ViewBag.Student_Classe_Id = new SelectList(db.Student_Classe, "Classe_Id", "Classe_Name", student_Infos.Student_Classe_Id);
             ViewBag.Student_Filiere_Id = new SelectList(db.Student_Filiere, "FiliereId", "FiliereName", student_Infos.Student_Filiere_Id);
-            return View(student_Infos);
+            return PartialView(student_Infos);
         }
 
         // POST: Student_Infos/Edit/5
@@ -119,7 +120,7 @@ namespace eschool.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Student_Id,Student_Fname,Student_Lname,Student_Age,Student_Filiere_Id,Student_Classe_Id,Student_Phone,Student_Email,Student_Photo")] Student_Infos student_Infos)
+        public ActionResult _Edit([Bind(Include = "Student_Id,Student_Fname,Student_Lname,Student_Age,Student_Filiere_Id,Student_Classe_Id,Student_Phone,Student_Email,Student_Photo")] Student_Infos student_Infos)
         {
             if (ModelState.IsValid)
             {
@@ -129,9 +130,8 @@ namespace eschool.Controllers
             }
             ViewBag.Student_Classe_Id = new SelectList(db.Student_Classe, "Classe_Id", "Classe_Name", student_Infos.Student_Classe_Id);
             ViewBag.Student_Filiere_Id = new SelectList(db.Student_Filiere, "FiliereId", "FiliereName", student_Infos.Student_Filiere_Id);
-            return View(student_Infos);
+            return PartialView(student_Infos);
         }
-
         // GET: Student_Infos/Delete/5
         public ActionResult Delete(int? id)
         {
