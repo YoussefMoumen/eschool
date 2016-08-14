@@ -29,37 +29,37 @@
 @*<p>
     @Html.ActionLink("Create New", "Create", null, new {@class= "btn btn-sm btn-success" })
 </p>*@
-<fieldset>
-    <legend>Student List</legend>
-    @foreach (var item in Model)
-    {
+    <fieldset>
+        <legend>Student List</legend>
+            @foreach (var item in Model)
+            {
 
-        <div class="col-md-4 col-sm-6" style="margin-bottom:10px;">
-            <div class="pull-right" style="padding:7px">
-                @Html.ActionLink("Edit", "_Edit", new { id = item.Student_Id }, new { @class = "btn btn-xs btn-info", data_toggle = "modal", data_target = "#Show_Edit" })
-            </div>
-            <div class="well well-lg">
-                <div class="media">
-                    <a class="thumbnail pull-left" href="#">
-                        <img class="media-object" src="//placehold.it/80">
-                        @Html.DisplayFor(modelItem => item.Student_Photo)
-                    </a>
-                    <b>
-                        @Html.DisplayFor(modelItem => item.Student_Fname)
-                    </b>
-                    @Html.DisplayFor(modelItem => item.Student_Lname)
-                    <br />
-                    @Html.DisplayFor(modelItem => item.Student_Age) Years Old<br />
-                    Filiere : @Html.DisplayFor(modelItem => item.Student_Filiere.FiliereName)<br />
-                    Classe: @Html.DisplayFor(modelItem => item.Student_Classe.Classe_Name)<br /><br />
-                    N° Phone : @Html.DisplayFor(modelItem => item.Student_Phone)<br />
-                    E-mail : @Html.DisplayFor(modelItem => item.Student_Email)
+                <div class="col-md-4 col-sm-6" style="margin-bottom:10px;">
+                    <div class="pull-right" style="padding:7px">
+                        @Html.ActionLink("Edit", "_Edit", new { id = item.Student_Id }, new { @class = "btn btn-xs btn-info", data_toggle = "modal", data_target = "#Show_Edit" })
+                    </div>
+                    <div class="well well-lg">
+                        <div class="media">
+                            <a class="thumbnail pull-left" href="#">
+                                <img class="media-object" src="//placehold.it/80">
+                                @Html.DisplayFor(modelItem => item.Student_Photo)
+                            </a>
+                            <b>
+                                @Html.DisplayFor(modelItem => item.Student_Fname)
+                            </b>
+                            @Html.DisplayFor(modelItem => item.Student_Lname)
+                            <br />
+                            @Html.DisplayFor(modelItem => item.Student_Age) Years Old<br />
+                            Filiere : @Html.DisplayFor(modelItem => item.Student_Filiere.FiliereName)<br />
+                            Classe: @Html.DisplayFor(modelItem => item.Student_Classe.Classe_Name)<br /><br />
+                            N° Phone : @Html.DisplayFor(modelItem => item.Student_Phone)<br />
+                            E-mail : @Html.DisplayFor(modelItem => item.Student_Email)
 
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    }
-    </fieldset>
+            }
+</fieldset>
     @Html.PagedListPager(Model, page => Url.Action("Students", new { page }),
                     new PagedListRenderOptions()
                     {
@@ -69,19 +69,18 @@
                         PageCountAndCurrentLocationFormat = "Page {0} sur {1}"
                     })
 
-@*----Modal _Edit-----*@
+    @*----Modal _Edit-----*@
 
-<div class="modal fade" id="Show_Edit" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="margin-top:80px;" >
-    <div class="modal-dialog">
+    <div class="modal fade" id="Show_Edit" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="margin-top:80px;">
+        <div class="modal-dialog">
 
-</div>
-</div>
-
-<div class="modal fade" id="Show_Create" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="margin-top:80px;">
-    <div class="modal-dialog">
-
+        </div>
     </div>
-</div>
+
+    <div class="modal fade" id="Show_Create" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="margin-top:80px;">
+        <div class="modal-dialog">
+
+        </div>
+    </div>
 
 
-    

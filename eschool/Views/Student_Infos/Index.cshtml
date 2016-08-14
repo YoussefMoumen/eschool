@@ -7,12 +7,13 @@
 @{
     ViewBag.Title = "Students List";
 }
+
 @helper CustomRenderingOfColumn()
 {
     @ViewBag.Student_Filiere_Id;
 }
 
-<div style="float:right;">@Html.ActionLink("Create New >>", "_Create", null, new { @class = "btn btn-success btn-sm", data_toggle = "modal", data_target = "#Show_Create" })</div><br />
+<div style="float:right;margin-top:20px;">@Html.ActionLink("Create New >>", "_Create", null, new { @class = "btn btn-success btn-sm", data_toggle = "modal", data_target = "#Show_Create" })</div><br />
 <fieldset>
     <legend>Student List</legend>
     @Html.Grid(Model).Columns(column =>
@@ -59,7 +60,7 @@ column.Add()
             @Html.ActionLink("Edit", "_Edit", new { id = d.Student_Id }, new { @class = "btn btn-xs btn-primary", data_toggle = "modal", data_target = "#Show_Edit" })
         </b>);
 
-}).WithPaging(9)
+}).WithPaging(5)
 </fieldset>
 
 <div class="modal fade" id="Show_Edit" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="margin-top:80px;">
@@ -74,17 +75,3 @@ column.Add()
 
     </div>
 </div>
-
-<div id="saveAlert" class="alert alert-success" data-alert="alert" style="display: none;">
-    <a class="close" href="#">×</a>
-    <p><strong>Well done!</strong>You successfully read this alert message.</p>
-</div>
-
-<script type="text/javascript">
-    //$("#submitButton").click(function () {
-    //    $("#saveAlert").fadeIn(300).delay(1500).fadeOut(400);
-    //});
-    function newAlert () {
-        $("#saveAlert").fadeIn(300).delay(1500).fadeOut(400);
-    };
-</script>

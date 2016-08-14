@@ -1,4 +1,5 @@
 ﻿@model eschool.Student_Infos
+
 <div id="divCreate">
     <div class="modal-content" style="margin-left: 140px;width:1000px;">
         <div class="modal-header">
@@ -29,7 +30,6 @@
                         </div>
 
 
-
                         @Html.LabelFor(model => model.Student_Lname, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-4">
                             @Html.EditorFor(model => model.Student_Lname, new { htmlAttributes = new { @class = "form-control" } })
@@ -43,10 +43,11 @@
                             @Html.EditorFor(model => model.Student_Age, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.Student_Age, "", new { @class = "text-danger" })
                         </div>
+                        
 
                         <label class="control-label col-md-2">Filiere</label>
                         <div class="col-md-4">
-                            @Html.DropDownList("Student_Filiere_Id", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.DropDownList("Filiere", ViewBag.Student_Filiere_Id as SelectList, "-- Select Filiere --", htmlAttributes: new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Student_Filiere_Id, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -55,7 +56,7 @@
 
                         <label class="control-label col-md-2">Classe</label>
                         <div class="col-md-4">
-                            @Html.DropDownList("Student_Classe_Id", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.DropDownList("Classe", ViewBag.Student_Classe_Id as SelectList, "-- Select Classe --", htmlAttributes: new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Student_Classe_Id, "", new { @class = "text-danger" })
                         </div>
 
@@ -79,7 +80,7 @@
 
                         @Html.LabelFor(model => model.Student_Photo, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-4">
-                            @Html.EditorFor(model => model.Student_Photo, new { htmlAttributes = new { @class = "form-control" } })
+                            <input type="file" />
                             @Html.ValidationMessageFor(model => model.Student_Photo, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -89,30 +90,56 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                         Close
                     </button>
-                    <input id="submitButton" onclick="newAlert();" type="submit" value="Save changes" class="btn btn-primary" />
+                    <input id="submitButton" type="submit" value="Save changes" class="btn btn-primary" />
                 </div>
-
-                @*<div class="alert alert-dismissable alert-success">
-
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                            ×
-                        </button>
-                        <h4>
-                            Alert!
-                        </h4> <strong>Warning!</strong> @Html.Raw(TempData["msg"]). <a href="#" class="alert-link">alert link</a>
-                    </div>*@
             }
         </div>
     </div>
 </div>
-    "@ViewBag.SuccessMessage"
-    <div id="saveAlert" class="alert alert-success" data-alert="alert" style="display: none;">
-        <a class="close" href="#">×</a>
-        <p><strong>Well done!</strong>"@ViewBag.SuccessMessage"</p>
-    </div>
-
+  
+@if (ViewBag.Message == "success")
+{
     <script type="text/javascript">
-        function newAlert() {
-            $("#saveAlert").fadeIn(300).delay(1500).fadeOut(400);
-        };
+        Command: toastr["success"](" ", "Succefully Added ")
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": true,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
     </script>
+}
+@if (ViewBag.Message == "error")
+{
+    <script type="text/javascript">
+        Command: toastr["error"](" ", "Error Insertion !!")
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": true,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+}

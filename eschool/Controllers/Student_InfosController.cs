@@ -9,7 +9,6 @@ using System.Web.Mvc;
 using eschool;
 using PagedList;
 
-
 namespace eschool.Controllers
 {
     public class Student_InfosController : Controller
@@ -87,14 +86,19 @@ namespace eschool.Controllers
         {
             if (ModelState.IsValid)
             {
-                ViewBag.SuccessMessage = "Change succesfully";
+                
                 db.Student_Infos.Add(student_Infos);
                 db.SaveChanges();
+                ViewBag.Message = "success";
+                ModelState.Clear();
+                ViewBag.Student_Classe_Id = new SelectList(db.Student_Classe, "Classe_Id", "Classe_Name");
+                ViewBag.Student_Filiere_Id = new SelectList(db.Student_Filiere, "FiliereId", "FiliereName");
                 return PartialView("_Create");
             }
-            
-            ViewBag.Student_Classe_Id = new SelectList(db.Student_Classe, "Classe_Id", "Classe_Name", student_Infos.Student_Classe_Id);
-            ViewBag.Student_Filiere_Id = new SelectList(db.Student_Filiere, "FiliereId", "FiliereName", student_Infos.Student_Filiere_Id);
+
+            ViewBag.Student_Classe_Id = new SelectList(db.Student_Classe, "Classe_Id", "Classe_Name");
+            ViewBag.Student_Filiere_Id = new SelectList(db.Student_Filiere, "FiliereId", "FiliereName");
+            ViewBag.Message = "error";
             return PartialView(student_Infos);
         }
 
@@ -110,8 +114,8 @@ namespace eschool.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Student_Classe_Id = new SelectList(db.Student_Classe, "Classe_Id", "Classe_Name", student_Infos.Student_Classe_Id);
-            ViewBag.Student_Filiere_Id = new SelectList(db.Student_Filiere, "FiliereId", "FiliereName", student_Infos.Student_Filiere_Id);
+            ViewBag.Student_Classe_Id = new SelectList(db.Student_Classe, "Classe_Id", "Classe_Name");
+            ViewBag.Student_Filiere_Id = new SelectList(db.Student_Filiere, "FiliereId", "FiliereName");
             return PartialView(student_Infos);
         }
 

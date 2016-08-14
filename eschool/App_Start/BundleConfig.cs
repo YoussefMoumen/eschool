@@ -52,6 +52,14 @@ namespace eschool
                       "~/Content/bootstrap.css",
                       "~/Content/Gridmvc.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/toastrjs").Include(
+                      "~/Scripts/toastr.js"));
+
+            bundles.Add(new StyleBundle("~/Content/toastrcss").Include(
+                      "~/Content/toastr.css",
+                      "~/Content/toastr.less"
+                      ));
         }
     }
 }
