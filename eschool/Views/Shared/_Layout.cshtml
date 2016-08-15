@@ -10,10 +10,17 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryui")
-    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>  
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 
 </head>
 <body>
+    <div id="preload">
+        <div class="cssload-loader">
+            <div class="cssload-inner cssload-one"></div>
+            <div class="cssload-inner cssload-two"></div>
+            <div class="cssload-inner cssload-three"></div>
+        </div>
+    </div>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -28,15 +35,31 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     @*<li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
                 </ul>
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    <div id="contain" class="container body-content">
         @RenderBody()
         <footer></footer>
     </div>
+    <script type="text/javascript">
+        document.onreadystatechange = function () {
+            var state = document.readyState
+            if (state == 'interactive') {
+                document.getElementById('contain').style.visibility = "hidden";
+                console.log(state);
+            } else if (state == 'complete') {
+                setTimeout(function () {
+                    document.getElementById('interactive');
+                    document.getElementById('preload').style.visibility = "hidden";
+                    document.getElementById('contain').style.visibility = "visible";
+                    console.log(state);
+                }, 1000);
+            }
+        }
+    </script>
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/gridmvc")
     @Scripts.Render("~/bundles/toastrjs")

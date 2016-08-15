@@ -214,6 +214,7 @@
     <Content Include="Content\images\globaloria_Training_Page_Icon_ActiveLearning-circle.png" />
     <Content Include="Content\images\Student-icon.png" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\Preload.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
